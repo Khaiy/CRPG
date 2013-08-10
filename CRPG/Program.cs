@@ -11,13 +11,27 @@ namespace CRPG
 
         static void Main(string[] args)
         {
-            int windowWidth = 150;
-            int windowHeight = 50;
+            int windowWidth;
+            int windowHeight;
+
+            // 150, 50 on Jane
+            if (Console.LargestWindowWidth < 150)
+            {
+                windowWidth = Console.LargestWindowWidth;
+                windowHeight = Console.LargestWindowHeight;
+            }
+
+            else
+            {
+                windowWidth = 150;
+                windowHeight = 50;
+            }
 
             //*//
             // Test window setup code
-            //Console.WriteLine("{0}, {1}", windowWidth, windowHeight);
-            Console.SetWindowSize(150, 50);
+            //Console.WriteLine("{0}, {1}", windowWidth,
+                //windowHeight);
+            Console.SetWindowSize(windowWidth, windowHeight);
             Console.BufferWidth = windowWidth;
             Console.BufferHeight = windowHeight;
 
@@ -32,23 +46,22 @@ namespace CRPG
                     Console.Write("|");
             }*/
 
-            Menus.StandardMenu sm = new Menus.StandardMenu(windowWidth, windowHeight,
-                windowWidth - 15, 0, 15, 50);
+            /*Menus.StandardMenu sm = new Menus.StandardMenu(windowWidth, windowHeight,
+                windowWidth - 15, 0, 15, windowHeight);*/
             //*//
 
             // Create the Game object
-            Game g = new Game();
+            Game g = new Game(windowWidth, windowHeight);
 
             // Begin game loop
             bool running = true;
 
             while (running)
             {
-                sm.DrawBorder();
+                //sm.Draw();
 
                 //*//
                 Console.SetCursorPosition(5, 5);
-                Console.Write(sm.test.ToString());
                 //*//
 
                 g.Update();
