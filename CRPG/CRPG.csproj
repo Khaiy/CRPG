@@ -43,12 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Examine.cs" />
     <Compile Include="ConsoleClasses\InputListener.cs" />
     <Compile Include="ConsoleClasses\Menu.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Location.cs" />
-    <Compile Include="Menus\Command.cs" />
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Menus\StandardMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

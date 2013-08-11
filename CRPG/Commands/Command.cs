@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CRPG.Menus
+namespace CRPG.Commands
 {
-    public class Command
+    public abstract class Command
     {
         // TODO: Write methods allowing the user to dynamically bind keys to a command
         // TODO: Write methods that can respond to key presses
@@ -34,6 +34,12 @@ namespace CRPG.Menus
             }
         }
 
+        public ConsoleKey KeyBinding
+        {
+            get { return keyBinding; }
+            private set { keyBinding = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -47,6 +53,8 @@ namespace CRPG.Menus
         #endregion
 
         #region Methods
+
+        public abstract void HandleInput();
 
         public override string ToString()
         {
