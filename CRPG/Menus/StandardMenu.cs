@@ -14,6 +14,8 @@ namespace CRPG.Menus
 
         Coordinate textOrigin;
 
+        Coordinate[] menuSlots;
+
         Dictionary<ConsoleKey, Commands.Command> commandKeys;        
 
         #endregion
@@ -23,12 +25,24 @@ namespace CRPG.Menus
         public StandardMenu(int bW, int bH, int xO, int yO, int w, int h)
             : base(bW, bH, xO, yO, w, h)
         {
+            // Set up menu slots for placing command options
             textOrigin = new Coordinate(xO + 1, yO + 1);
+
+            menuSlots = new Coordinate[10];
+
+            for (int i = 0; i < menuSlots.Length; i++)
+            {
+                // Assign a fresh coordinate for each slot
+                // Think of a sensible way to connect each slot
+                // with a command.
+            }
 
             commandKeys = new Dictionary<ConsoleKey, Commands.Command>();
 
             commandKeys.Add(ConsoleKey.E,
                 new Commands.Examine(ConsoleKey.E));
+
+
         }
 
         #endregion
@@ -53,6 +67,11 @@ namespace CRPG.Menus
         {
             if (commandKeys.ContainsKey(e.code))
                 commandKeys[e.code].HandleInput();
+        }
+
+        private void AddCommand(Commands.Command c)
+        {
+            commandKeys.Add(c.KeyBinding, c);
         }
 
         #endregion
