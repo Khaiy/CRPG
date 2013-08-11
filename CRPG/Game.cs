@@ -16,14 +16,19 @@ namespace CRPG
 
         InputListener inputListener;
 
+        Menu currentMenu;
+
         #endregion
 
         #region Constructors
 
-        public Game()
+        public Game(int windowWidth, int windowHeight)
         {
             inputListener = new InputListener();
             inputListener.KeyPressed += new EventHandler<Utilities.KeyEventArgs>(OnKeyPressed);
+
+            currentMenu = new Menus.StandardMenu(windowWidth, windowHeight,
+                windowWidth - 15, 0, 15, windowHeight);
         }
 
         #endregion
@@ -32,6 +37,7 @@ namespace CRPG
 
         public void Update()
         {
+            currentMenu.Draw();
             inputListener.Update();
         }
 
@@ -44,6 +50,7 @@ namespace CRPG
         public void OnKeyPressed(object sender, Utilities.KeyEventArgs e)
         {
             // Pass key event args to the current game state
+            currentMenu.HandleInput(e);
 
             //*//
             if (e.code == ConsoleKey.Escape)

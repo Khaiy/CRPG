@@ -62,11 +62,20 @@ namespace CRPG.ConsoleClasses
 
         #region Methods
 
+        public virtual void Draw()
+        {
+            DrawBorder();
+        }
+
         public virtual void Update()
         {
         }
 
-        public void DrawBorder()
+        public virtual void HandleInput(Utilities.KeyEventArgs e)
+        {
+        }
+
+        private void DrawBorder()
         {
             int maxDrawableX = bufferWidth - 1;
             int maxDrawableY = bufferHeight - 2; // To prevent window scrolling
@@ -76,7 +85,7 @@ namespace CRPG.ConsoleClasses
 
             Console.SetCursorPosition(currentColumn, currentRow);
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < height - 1; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
@@ -84,7 +93,7 @@ namespace CRPG.ConsoleClasses
                     if (x == 0 || currentColumn == maxDrawableX)
                     {
                         if (y == 0 || currentRow == maxDrawableY)
-                            Console.Write("O");
+                             Console.Write("O");
 
                         else
                             Console.Write("|");
@@ -112,6 +121,9 @@ namespace CRPG.ConsoleClasses
                     currentColumn = xOrigin;
                     Console.SetCursorPosition(currentColumn, currentRow);
                 }
+
+                else
+                    currentRow = yOrigin;
             }
         }
 
