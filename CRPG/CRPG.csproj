@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Examine.cs" />
+    <Compile Include="Commands\Go.cs" />
     <Compile Include="ConsoleClasses\InputListener.cs" />
     <Compile Include="ConsoleClasses\Menu.cs" />
     <Compile Include="Coordinate.cs" />

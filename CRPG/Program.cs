@@ -61,7 +61,7 @@ namespace CRPG
                 //sm.Draw();
 
                 //*//
-                Console.SetCursorPosition(5, 5);
+                //Console.SetCursorPosition(5, 5);
                 //*//
 
                 g.Update();

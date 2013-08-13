@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using CRPG.Commands;
+
 namespace CRPG.Menus
 {
     public class StandardMenu : ConsoleClasses.Menu
@@ -12,11 +14,14 @@ namespace CRPG.Menus
         // public Command test = new Command(ConsoleKey.A, "testorizer");
         //*//
 
+        Go go;
+        Examine examine;
+
         Coordinate textOrigin;
 
-        Coordinate[] menuSlots;
+        Dictionary<ConsoleKey, Commands.Command> commandKeys;
 
-        Dictionary<ConsoleKey, Commands.Command> commandKeys;        
+        Dictionary<Command, Coordinate> menuSlots;
 
         #endregion
 
@@ -25,22 +30,36 @@ namespace CRPG.Menus
         public StandardMenu(int bW, int bH, int xO, int yO, int w, int h)
             : base(bW, bH, xO, yO, w, h)
         {
-            // Set up menu slots for placing command options
-            textOrigin = new Coordinate(xO + 1, yO + 1);
+            // Set up commands
+            go = new Go(ConsoleKey.G);
+            examine = new Examine(ConsoleKey.E);            
 
-            menuSlots = new Coordinate[10];
-
-            for (int i = 0; i < menuSlots.Length; i++)
-            {
-                // Assign a fresh coordinate for each slot
-                // Think of a sensible way to connect each slot
-                // with a command.
-            }
-
+            // Link console keys to their assigned commands
             commandKeys = new Dictionary<ConsoleKey, Commands.Command>();
 
-            commandKeys.Add(ConsoleKey.E,
-                new Commands.Examine(ConsoleKey.E));
+            commandKeys.Add(go.KeyBinding, go);
+            commandKeys.Add(examine.KeyBinding, examine);
+
+            // Set screen positions from commands, then populate
+            // the menuSlots dictionary
+            // This approach seems awkward and ugly.
+            // Consider for major refactor.
+            menuSlots = new Dictionary<Command, Coordinate>();
+
+            textOrigin = new Coordinate(xO + 1, yO + 1);
+
+            int yOffset = 0;
+
+            for (int i = 0; i < commandKeys.Count; i++)
+            {
+                Command currentCommand = commandKeys.ElementAt(i).Value;
+
+                menuSlots.Add(currentCommand,
+                    new Coordinate(textOrigin.xCoordinate,
+                    textOrigin.yCoordinate + yOffset));
+
+                yOffset++;
+            }
 
 
         }
@@ -51,11 +70,15 @@ namespace CRPG.Menus
 
         public override void Draw()
         {
+            // This bit feels awkward. Consider a major
+            // refactor.
             foreach (Commands.Command c in commandKeys.Values)
             {
                 // Set cursor position, draw command
-                Console.SetCursorPosition(textOrigin.xCoordinate,
-                    textOrigin.yCoordinate);
+                int xPosition = menuSlots[c].xCoordinate;
+                int yPosition = menuSlots[c].yCoordinate;
+
+                Console.SetCursorPosition(xPosition, yPosition);
 
                 Console.Write(c.ToString());
             }
