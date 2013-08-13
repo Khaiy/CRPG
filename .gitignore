@@ -1,6 +1,6 @@
 *\bin
 obj
-suo
+*.suo
 *\gec
 
 [Oo]bj/
